@@ -1,0 +1,22 @@
+@use "base/variables" as v;
+.navegation {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+
+  a {
+    padding: 1.5rem 0.5rem;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition-property: border-bottom;
+    transition-duration: 0.3s;
+
+    &:hover {
+      border-bottom: 3px solid v.$color-primary;
+    }
+  }
+}
