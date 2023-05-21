@@ -1,7 +1,7 @@
 @use "base/variables" as v;
 
 .header {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid lighten($color: v.$color-border, $amount: 10%);
 
   div {
@@ -21,6 +21,10 @@
 
   h1 {
     font-weight: 300;
+    color: v.$color-primary;
+    &:active {
+      color: v.$color-primary;
+    }
   }
 }
 

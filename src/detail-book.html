@@ -2,7 +2,7 @@
 <html lang="es">
 
 @@include('./partials/head.html', {
-"titulo":"BOOKSHOPPING HOME"
+"titulo":"BOOKSHOPPING DETAIL"
 })
 
 <body>
@@ -13,14 +13,13 @@
 
     <main class="contenido-principal">
         <div class="container">
-            @@include('./partials/filtros-aside.html')
-            @@include('./partials/book-grid.html')
+
         </div>
     </main>
 
     @@loop('./partials/scripts.html', [
     {
-    file: './js/books.js'
+    file: './js/detail.js'
     }
     ])
 </body>

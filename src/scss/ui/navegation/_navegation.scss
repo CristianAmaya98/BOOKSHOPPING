@@ -18,5 +18,9 @@
     &:hover {
       border-bottom: 3px solid v.$color-primary;
     }
+
+    &:active {
+      color: v.$color-primary;
+    }
   }
 }

@@ -14,16 +14,21 @@ const fileinclude = require("gulp-file-include");
 const connect = require("gulp-connect");
 
 const config = {
-  production: false,
+  production: true,
+  js: {
+    input: "src/js/*.js",
+    ouput: "dist/js",
+    watchAndReload: "src/js/**/*.js"
+  },
   sass: {
     input: "src/scss/app.scss",
     ouput: "dist/css",
     watchAndReload: "src/scss/**/*.scss"
   },
   html: {
-    inputs: ["src/index.html", "src/books.html"],
+    inputs: "src/*.html",
     ouput: "dist",
-    watchAndReload: "src/*.html"
+    watchAndReload: "src/**/*.html"
   },
   server: {
     name: "BOOKSHOPPING",
@@ -31,6 +36,12 @@ const config = {
     port: 3070
   }
 };
+
+function compilarJS() {
+  return src(config.js.input)
+    .pipe(dest(config.js.ouput))
+    .pipe(connect.reload());
+}
 
 function compilarHtml() {
   return src(config.html.inputs)
@@ -55,15 +66,15 @@ function compilarSass() {
     .pipe(sourcemaps.init())
     .pipe(
       sass({
-        outputStyle: config.production ? "compressed" : "expanded"
+        outputStyle: false ? "compressed" : "expanded"
       }).on("error", sass.logError)
     )
-    .pipe(
-      autoprefixer({
-        cascade: false
-      })
-    )
-    .pipe(cssnano())
+    // .pipe(
+    //   autoprefixer({
+    //     cascade: false
+    //   })
+    // )
+    // .pipe(cssnano())
     .pipe(sourcemaps.write("."))
     .pipe(dest(config.sass.ouput))
     .pipe(connect.reload());
@@ -81,10 +92,12 @@ function connectLiveReload() {
 function watchAndReload() {
   watch(config.html.watchAndReload, compilarHtml);
   watch(config.sass.watchAndReload, compilarSass);
+  watch(config.js.watchAndReload, compilarJS);
 }
 
 exports.default = series(
   compilarHtml,
   compilarSass,
+  compilarJS,
   parallel(watchAndReload, connectLiveReload)
 );
